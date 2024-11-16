@@ -18,10 +18,13 @@ namespace TrilhaApiDesafio.Controllers
         [HttpGet("{id}")]
         public IActionResult ObterPorId(int id)
         {
-            // TODO: Buscar o Id no banco utilizando o EF
-            // TODO: Validar o tipo de retorno. Se não encontrar a tarefa, retornar NotFound,
+
+            // Buscar o Id no banco utilizando o EF
+            // Validar o tipo de retorno. Se não encontrar a tarefa, retornar NotFound,
             // caso contrário retornar OK com a tarefa encontrada
-            return Ok();
+            var tarefa = _context.Tarefas.Where(tarefa => tarefa.Id == id).FirstOrDefault();
+            if(tarefa == null) return NotFound();
+            return Ok(tarefa);
         }
 
         [HttpGet("ObterTodos")]
